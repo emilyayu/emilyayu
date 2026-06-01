@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emily Yu, P.E. — Engineer & Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blush:     #f7eee9;
+      --blush-dk:  #edddd5;
+      --white:     #ffffff;
+      --red:       #e8373a;
+      --red-dk:    #c42225;
+      --sage:      #b8c4b0;
+      --sage-lt:   #dce4d8;
+      --sage-dk:   #7a9070;
+      --yellow:    #eeedc8;
+      --yellow-dk: #d4d39a;
+      --ink:       #1c1a1a;
+      --ink-mid:   #3a3636;
+      --ink-muted: #7a7270;
+      --ink-faint: #b0aaa8;
+      --serif: 'Cormorant Garamond', serif;
+      --sans:  'Jost', sans-serif;
+      --tr: 0.2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--blush); color: var(--ink); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--blush-dk);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--red); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.72rem; font-weight: 400;
+      color: var(--ink-muted); letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color var(--tr);
+    }
+    .nav-links a:hover { color: var(--red); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--white);
+      padding-top: 56px;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3.5rem 5rem 5rem;
+      background: var(--blush);
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 2rem;
+    }
+    .hero-name {
+      font-family: var(--serif); font-size: clamp(3.5rem, 5.5vw, 5.8rem);
+      font-weight: 300; line-height: 1.0; letter-spacing: 0.02em;
+      color: var(--ink); margin-bottom: 0.2rem;
+    }
+    .hero-name-accent {
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+      color: var(--red); margin-bottom: 2rem; letter-spacing: 0.04em;
+    }
+    .hero-divider { width: 32px; height: 1px; background: var(--red); margin-bottom: 1.75rem; }
+    .hero-tagline {
+      font-size: 0.9rem; font-weight: 300; color: var(--ink-muted);
+      max-width: 38ch; line-height: 1.9; margin-bottom: 2.75rem; letter-spacing: 0.02em;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center;
+      text-decoration: none; font-family: var(--sans);
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.8rem 2rem;
+      transition: all var(--tr); cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--red); color: var(--white); }
+    .btn-primary:hover { background: var(--red-dk); }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--ink-faint); }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+    /* HERO PHOTO */
+    .hero-photo-panel {
+      position: relative; overflow: hidden;
+      background: var(--blush-dk);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-photo-panel img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      position: absolute; top: 0; left: 0; display: block;
+    }
+    .photo-placeholder-inner {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1rem;
+      width: 100%; height: 100%; min-height: 480px;
+    }
+    .photo-circle {
+      width: 180px; height: 180px; border-radius: 50%;
+      border: 1.5px dashed var(--ink-faint);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.6rem;
+    }
+    .photo-circle svg { opacity: 0.35; }
+    .photo-circle-label { font-size: 0.72rem; color: var(--ink-faint); text-align: center; line-height: 1.5; letter-spacing: 0.04em; }
+    .photo-hint {
+      font-size: 0.7rem; color: var(--ink-faint); letter-spacing: 0.06em;
+      text-align: center; max-width: 20ch; line-height: 1.6;
+    }
+    .hero-info-strip {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--white);
+      display: flex;
+      border-top: 1px solid var(--blush-dk);
+    }
+    .info-pill {
+      flex: 1; padding: 0.875rem 1.25rem;
+      border-right: 1px solid var(--blush-dk);
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .info-pill:last-child { border-right: none; }
+    .info-pill-val { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--ink); }
+    .info-pill-key { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+
+    /* ABOUT */
+    #about { background: var(--white); padding: 6rem 5rem; }
+    .section-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.75rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.1; letter-spacing: 0.01em; color: var(--ink); margin-bottom: 1rem; }
+    .section-subtitle { font-size: 0.9rem; font-weight: 300; color: var(--ink-muted); max-width: 52ch; line-height: 1.9; margin-bottom: 3.5rem; letter-spacing: 0.02em; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 5rem; align-items: start; }
+    .about-body { font-size: 0.9rem; font-weight: 300; color: var(--ink-muted); line-height: 1.9; margin-bottom: 1.25rem; letter-spacing: 0.02em; }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2.5rem; }
+    .stat-card {
+      background: var(--blush); padding: 1.25rem 1rem;
+      border-bottom: 2px solid var(--red);
+    }
+    .stat-num { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; line-height: 1; color: var(--ink); margin-bottom: 0.3rem; }
+    .stat-label { font-size: 0.65rem; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .skills-group { margin-bottom: 1.75rem; }
+    .skills-group-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.65rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-size: 0.75rem; padding: 0.28rem 0.75rem; font-weight: 300; letter-spacing: 0.03em; background: var(--blush); color: var(--ink-mid); border: 1px solid var(--blush-dk); transition: border-color var(--tr); }
+    .tag:hover { border-color: var(--red); }
+
+    /* EXPERIENCE */
+    #experience { background: var(--blush); padding: 6rem 5rem; }
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 2.5rem; padding: 2.5rem 0;
+      border-bottom: 1px solid var(--blush-dk);
+    }
+    .exp-item:first-child { border-top: 1px solid var(--blush-dk); }
+    .exp-company { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+    .exp-period { font-size: 0.78rem; font-weight: 300; color: var(--ink-muted); line-height: 1.6; letter-spacing: 0.02em; }
+    .exp-title { font-family: var(--serif); font-size: 1.3rem; font-weight: 400; margin-bottom: 0.85rem; color: var(--ink); }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-bullets li {
+      font-size: 0.875rem; font-weight: 300; color: var(--ink-muted);
+      line-height: 1.75; padding-left: 1.1rem; position: relative; letter-spacing: 0.02em;
+    }
+    .exp-bullets li::before {
+      content: ''; position: absolute; left: 0; top: 0.62em;
+      width: 4px; height: 1px; background: var(--red);
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--white); padding: 6rem 5rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .project-card {
+      padding: 1.75rem;
+      border: 1px solid var(--blush-dk);
+      background: var(--blush);
+      transition: border-color var(--tr), transform var(--tr);
+    }
+    .project-card:hover { border-color: var(--red); transform: translateY(-2px); }
+    .project-category { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 0.6rem; }
+    .project-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; line-height: 1.25; margin-bottom: 0.65rem; color: var(--ink); }
+    .project-desc { font-size: 0.82rem; font-weight: 300; color: var(--ink-muted); line-height: 1.75; margin-bottom: 1rem; letter-spacing: 0.02em; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tech-tag { font-size: 0.65rem; padding: 0.2rem 0.55rem; background: var(--white); color: var(--ink-muted); border: 1px solid var(--blush-dk); }
+    .project-link { display: inline-block; margin-top: 1rem; font-size: 0.7rem; font-weight: 500; color: var(--red); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; }
+    .project-link:hover { text-decoration: underline; }
+
+    /* EDUCATION — sage */
+    #education { background: var(--sage-lt); padding: 6rem 5rem; }
+    #education .section-label { color: var(--sage-dk); }
+    #education .section-title { color: var(--ink); }
+    .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .edu-card {
+      background: var(--white); padding: 2rem 1.75rem;
+      border: 1px solid rgba(122,144,112,0.3);
+      border-top: 2px solid var(--sage-dk);
+    }
+    .edu-year { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage-dk); margin-bottom: 0.5rem; }
+    .edu-school { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.4rem; }
+    .edu-degree { font-size: 0.84rem; font-weight: 300; color: var(--ink-muted); line-height: 1.5; }
+    .edu-courses { font-size: 0.72rem; color: var(--ink-faint); margin-top: 0.6rem; line-height: 1.6; letter-spacing: 0.02em; }
+
+    /* CONTACT — yellow */
+    #contact { background: var(--yellow); padding: 6rem 5rem; }
+    #contact .section-label { color: var(--ink-mid); }
+    #contact .section-title { color: var(--ink); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-intro { font-size: 0.92rem; font-weight: 300; color: var(--ink-muted); line-height: 1.9; margin-bottom: 2.5rem; letter-spacing: 0.02em; }
+    .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1.25rem;
+      text-decoration: none; color: var(--ink);
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid var(--yellow-dk);
+      transition: background var(--tr), border-color var(--tr);
+    }
+    .contact-link:hover { background: var(--white); border-color: var(--red); }
+    .contact-link-icon { font-size: 0.9rem; color: var(--red); min-width: 1rem; text-align: center; }
+    .contact-link-text { font-size: 0.875rem; font-weight: 400; color: var(--ink); }
+    .contact-link-sub { font-size: 0.7rem; font-weight: 300; color: var(--ink-muted); letter-spacing: 0.04em; }
+
+    footer {
+      background: var(--ink); padding: 1.5rem 5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    footer p { font-size: 0.72rem; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      nav { padding: 0 1.5rem; }
+      #about, #experience, #projects, #education, #contact { padding: 5rem 2.5rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-text { padding: 6rem 2.5rem 3rem; }
+      .hero-photo-panel { min-height: 55vw; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      footer { padding: 1.5rem 2.5rem; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      #about, #experience, #projects, #education, #contact { padding: 4rem 1.5rem; }
+      .hero-text { padding: 5rem 1.5rem 3rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .hero-info-strip { position: static; flex-wrap: wrap; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero" class="nav-logo">Emily Yu, P.E.</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Civil Engineer &nbsp;·&nbsp; Developer &nbsp;·&nbsp; PM</p>
+      <h1 class="hero-name">Emily Yu</h1>
+      <p class="hero-name-accent">P.E., Civil Engineering</p>
+      <div class="hero-divider"></div>
+      <p class="hero-tagline">
+        Licensed civil engineer and CS graduate bridging construction and the technology modernizing it — 6+ years delivering infrastructure from kickoff to closeout.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Portfolio</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+
+    <div class="hero-photo-panel">
+      <!--
+        TO ADD YOUR PHOTO:
+        1. Save your photo as "photo.jpg" in the same folder as index.html
+        2. Delete the photo-placeholder-inner div below entirely
+        3. Add this line inside .hero-photo-panel:
+           <img src="photo.jpg" alt="Emily Yu" />
+        OR use a hosted URL:
+           <img src="https://your-image-url/photo.jpg" alt="Emily Yu" />
+      -->
+      <div class="photo-placeholder-inner">
+        <div class="photo-circle">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="15" r="7" stroke="#7a7270" stroke-width="1.2"/>
+            <path d="M5 37c0-8.284 6.716-15 15-15s15 6.716 15 15" stroke="#7a7270" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <p class="photo-circle-label">Your photo<br/>goes here</p>
+        </div>
+        <p class="photo-hint">See HTML comment to add your photo</p>
+      </div>
+
+      <div class="hero-info-strip">
+        <div class="info-pill">
+          <span class="info-pill-val">PE</span>
+          <span class="info-pill-key">License No. 92035</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-pill-val">6+</span>
+          <span class="info-pill-key">Years in AEC</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-pill-val">3</span>
+          <span class="info-pill-key">Degrees</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div>
+        <p class="section-label">About Me</p>
+        <h2 class="section-title">Engineer at heart,<br/>developer by training</h2>
+        <p class="about-body">I'm a licensed civil engineer (PE) and computer science graduate with a background in structural mechanics, construction management, and full-stack development. My career spans government infrastructure, blast-resistant design, and front-end web work.</p>
+        <p class="about-body">Currently serving as Project Manager at Hout Construction Services, managing $500K–$5M municipal projects in Southern California. I'm uniquely positioned to bridge the AEC industry and the technology transforming it.</p>
+        <div class="about-stats">
+          <div class="stat-card"><div class="stat-num">6+</div><div class="stat-label">Years in AEC</div></div>
+          <div class="stat-card"><div class="stat-num">$5M+</div><div class="stat-label">Projects Managed</div></div>
+          <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Degrees</div></div>
+          <div class="stat-card"><div class="stat-num">PE</div><div class="stat-label">Licensed Engineer</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="skills-group">
+          <p class="skills-group-label">Project Management</p>
+          <div class="skill-tags">
+            <span class="tag">Client Onboarding</span><span class="tag">Stakeholder Management</span>
+            <span class="tag">QA/QC</span><span class="tag">Change Orders</span>
+            <span class="tag">RFI/Submittals</span><span class="tag">Cost Estimation</span>
+            <span class="tag">CRM Systems</span><span class="tag">Microsoft Suite</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-group-label">Programming & Databases</p>
+          <div class="skill-tags">
+            <span class="tag">JavaScript</span><span class="tag">Python</span>
+            <span class="tag">React</span><span class="tag">HTML / CSS</span><span class="tag">MySQL</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-group-label">AEC Software</p>
+          <div class="skill-tags">
+            <span class="tag">Autodesk Revit</span><span class="tag">AutoCAD</span>
+            <span class="tag">SAP2000</span><span class="tag">Bluebeam</span><span class="tag">RISA</span>
+          </div>
+        </div>
+        <div class="skills-group">
+          <p class="skills-group-label">Engineering</p>
+          <div class="skill-tags">
+            <span class="tag">Civil Engineering</span><span class="tag">Structural Mechanics</span>
+            <span class="tag">Blast Analysis</span><span class="tag">FEA</span>
+            <span class="tag">Constructability Review</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">Experience</p>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <div>
+          <p class="exp-company">Hout Construction</p>
+          <p class="exp-period">Dec 2024 – Present<br/>Newport Beach, CA</p>
+        </div>
+        <div>
+          <h3 class="exp-title">Project Manager</h3>
+          <ul class="exp-bullets">
+            <li>Manages $500K–$5M municipal infrastructure projects, leading weekly stakeholder meetings to surface risks and ensure successful delivery.</li>
+            <li>Onboards contractors, engineers, and client representatives at kickoff to align goals and establish workflows.</li>
+            <li>Reviews engineering plan sets and submittals for QA/QC, including constructability review for a new Newport Beach residential development.</li>
+            <li>Develops technical proposals and presentations, leveraging AI tools to accelerate research and documentation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <p class="exp-company">Hout Construction</p>
+          <p class="exp-period">Feb 2020 – Dec 2024<br/>Newport Beach, CA</p>
+        </div>
+        <div>
+          <h3 class="exp-title">Deputy PM & Project Engineer</h3>
+          <ul class="exp-bullets">
+            <li>Built cloud-based project tracking systems providing real-time visibility to agency clients.</li>
+            <li>Prevented upwards of $100K in construction delays by identifying constructability issues during technical reviews.</li>
+            <li>Negotiated change orders reducing contractor pricing deviations by up to 20%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <p class="exp-company">Freelance</p>
+          <p class="exp-period">Nov 2022 – Present<br/>Los Angeles, CA</p>
+        </div>
+        <div>
+          <h3 class="exp-title">Website & Graphic Design Consultant</h3>
+          <ul class="exp-bullets">
+            <li>Conducted discovery sessions to map operational needs and define project scope before development.</li>
+            <li>Developed and deployed websites using HTML, CSS, JavaScript, and CMS platforms for small businesses and non-profits.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <p class="exp-company">Karagozian & Case</p>
+          <p class="exp-period">Sep 2018 – Feb 2020<br/>Glendale, CA</p>
+        </div>
+        <div>
+          <h3 class="exp-title">Engineer II & Engineer I</h3>
+          <ul class="exp-bullets">
+            <li>Developed structural models in Revit and performed blast effects analyses for U.S. embassy projects, high-rises, and stadiums.</li>
+            <li>Generated blast vulnerability assessments translating complex threat analyses into actionable design recommendations.</li>
+            <li>Extended single-degree-of-freedom analysis tools in FORTRAN across materials and boundary conditions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <p class="exp-company">Kanda Tso | Hohbach Lewin</p>
+          <p class="exp-period">Jun – Sep 2017<br/>South Pasadena, CA</p>
+        </div>
+        <div>
+          <h3 class="exp-title">Structural Engineering Intern</h3>
+          <ul class="exp-bullets">
+            <li>Designed low-rise steel and reinforced masonry structures per ASCE 7-10 and California Building Code, including diaphragms, lateral systems, and grade beams.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Selected work</h2>
+    <p class="section-subtitle">Coding, design, and engineering projects spanning web development, AI/ML, data systems, and structural analysis.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <p class="project-category">React · Frontend</p>
+        <h3 class="project-title">React Todo List</h3>
+        <p class="project-desc">A responsive task management app built with React hooks and component-based architecture.</p>
+        <div class="project-tech"><span class="tech-tag">React</span><span class="tech-tag">JavaScript</span><span class="tech-tag">CSS</span></div>
+        <a href="https://emilyayu.wordpress.com/2024/02/21/react-to-do-list/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">React · Frontend</p>
+        <h3 class="project-title">React Deck of Cards</h3>
+        <p class="project-desc">An interactive card deck application demonstrating state management and animation in React.</p>
+        <div class="project-tech"><span class="tech-tag">React</span><span class="tech-tag">JavaScript</span><span class="tech-tag">API</span></div>
+        <a href="https://emilyayu.wordpress.com/2024/03/06/deck-of-cards/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">AI · Python</p>
+        <h3 class="project-title">Movie Recommendation Engine</h3>
+        <p class="project-desc">A recommendation system using OpenAI embeddings to match users with films based on semantic similarity across 1,000 movies.</p>
+        <div class="project-tech"><span class="tech-tag">Python</span><span class="tech-tag">OpenAI</span><span class="tech-tag">Embeddings</span></div>
+        <a href="https://emilyayu.wordpress.com/2024/03/07/movie-recommendation-generator-using-embeddings/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Full Stack · Database</p>
+        <h3 class="project-title">Citizen Science for Kids</h3>
+        <p class="project-desc">A full-stack educational platform with admin portal enabling citizen science data collection for K–12 students.</p>
+        <div class="project-tech"><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span><span class="tech-tag">HTML/CSS</span></div>
+        <a href="https://emilyayu.wordpress.com/2023/08/15/coding-projects/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">API · OpenAI</p>
+        <h3 class="project-title">Color Palette Generator</h3>
+        <p class="project-desc">A creative tool using the OpenAI API to generate cohesive color palettes from natural language descriptions.</p>
+        <div class="project-tech"><span class="tech-tag">JavaScript</span><span class="tech-tag">OpenAI API</span><span class="tech-tag">CSS</span></div>
+        <a href="https://emilyayu.wordpress.com/2023/08/30/color-palette-generator-using-the-chatgbt-api/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Web Design</p>
+        <h3 class="project-title">Yoga Rebel Website Revamp</h3>
+        <p class="project-desc">Full redesign and rebuild of a yoga studio's website — modernizing brand presence and improving user experience.</p>
+        <div class="project-tech"><span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">CMS</span></div>
+        <a href="https://emilyayu.wordpress.com/2023/08/15/yoga-rebel-website-revamp/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Engineering</p>
+        <h3 class="project-title">Infrastructure at Hout</h3>
+        <p class="project-desc">Municipal civil engineering projects including street improvements, utilities, and residential development in Southern California.</p>
+        <div class="project-tech"><span class="tech-tag">Civil Engineering</span><span class="tech-tag">AutoCAD</span><span class="tech-tag">Revit</span></div>
+        <a href="https://emilyayu.wordpress.com/2023/08/15/projects-at-hout-construction-services/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Engineering · Research</p>
+        <h3 class="project-title">Geodesic Dome on Mars</h3>
+        <p class="project-desc">Structural design and FEA analysis of a geodesic dome habitat for Mars using finite element methods and advanced materials research.</p>
+        <div class="project-tech"><span class="tech-tag">SAP2000</span><span class="tech-tag">FEA</span><span class="tech-tag">Structural Design</span></div>
+        <a href="https://emilyayu.wordpress.com/2023/08/15/geodesic-dome-on-mars/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+      <div class="project-card">
+        <p class="project-category">Full Stack · Database</p>
+        <h3 class="project-title">Online Digital Library</h3>
+        <p class="project-desc">A relational database-backed digital library system with search, user management, and cataloging features.</p>
+        <div class="project-tech"><span class="tech-tag">MySQL</span><span class="tech-tag">JavaScript</span><span class="tech-tag">HTML/CSS</span></div>
+        <a href="https://emilyayu.wordpress.com/2023/08/15/online-digital-library-database/" target="_blank" class="project-link">View Project →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label">Education</p>
+    <h2 class="section-title">Academic background</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <p class="edu-year">2023</p>
+        <h3 class="edu-school">Oregon State University</h3>
+        <p class="edu-degree">B.S. Computer Science</p>
+        <p class="edu-courses">Data Structures · Web Development · Databases</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-year">2018</p>
+        <h3 class="edu-school">Cornell University</h3>
+        <p class="edu-degree">M.Eng. Structural Mechanics & Materials</p>
+        <p class="edu-courses">Finite Element Analysis · Structural Dynamics · 3D Printing · Solid Mechanics</p>
+      </div>
+      <div class="edu-card">
+        <p class="edu-year">2017</p>
+        <h3 class="edu-school">Cal Poly Pomona</h3>
+        <p class="edu-degree">B.S. Civil Engineering, Magna Cum Laude</p>
+        <p class="edu-courses">Structural Design · Transportation · Geotechnical · Highway Engineering</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's connect</h2>
+        <p class="contact-intro">Whether you're exploring AEC technology, need a project manager who codes, or want to collaborate at the intersection of engineering and software — I'd love to hear from you.</p>
+        <a href="mailto:emilyalexandrayu@gmail.com" class="btn btn-primary">Send an Email</a>
+      </div>
+      <div>
+        <div class="contact-links">
+          <a href="mailto:emilyalexandrayu@gmail.com" class="contact-link">
+            <span class="contact-link-icon">✉</span>
+            <div><div class="contact-link-text">emilyalexandrayu@gmail.com</div><div class="contact-link-sub">Email</div></div>
+          </a>
+          <a href="tel:6262164418" class="contact-link">
+            <span class="contact-link-icon">☎</span>
+            <div><div class="contact-link-text">(626) 216-4418</div><div class="contact-link-sub">Phone</div></div>
+          </a>
+          <a href="https://www.linkedin.com/in/emily-yu/" target="_blank" class="contact-link">
+            <span class="contact-link-icon">in</span>
+            <div><div class="contact-link-text">linkedin.com/in/emily-yu</div><div class="contact-link-sub">LinkedIn</div></div>
+          </a>
+          <a href="https://github.com/emilyayu" target="_blank" class="contact-link">
+            <span class="contact-link-icon">⌥</span>
+            <div><div class="contact-link-text">github.com/emilyayu</div><div class="contact-link-sub">GitHub</div></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Emily Yu, P.E. — Civil Engineer & Developer</p>
+    <p>PE License No. 92035 · California</p>
+  </footer>
+
+</body>
+</html>
